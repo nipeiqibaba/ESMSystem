@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: ESMSystem
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com.neu
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/ESMSystem
+Created-By: Maven Integration for Eclipse
+

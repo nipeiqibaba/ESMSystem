@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<context id="context1" targetRuntime="Mybatis3">
+  	<property name="javaFileEncoding" value="UTF-8"/>
+  	<commentGenerator>
+  		<property name="suppressDate" value="true"/>
+  		<property name="addRemarkComments" value="true"/>
+  	</commentGenerator>
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/esmsystem?characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useInformationSchema=true&amp;nullCatalogMeansCurrent=true" 
+    	driverClass="com.mysql.cj.jdbc.Driver" password="root" userId="root" />
+    <!-- 生成实体类 -->
+    <javaModelGenerator targetPackage="com.neu.entity" targetProject="ESMSystem" />
+    <!-- 生成接口及mapper映射文件 -->
+    <sqlMapGenerator targetPackage="com.neu.mapper" targetProject="ESMSystem" />
+    <javaClientGenerator targetPackage="com.neu.mapper" targetProject="ESMSystem" type="XMLMAPPER" />
+    
+<!--    <table schema="root" tableName="menu">      
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    	<columnOverride column="parent_id" property="parentMenu" javaType="Menu"></columnOverride>
+    </table>
+    
+    <table schema="root" tableName="role">  
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    </table>
+    
+	<table schema="root" tableName="menu">      
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    	<columnOverride column="parent_id" property="parentMenu" javaType="Menu"></columnOverride>
+    </table>
+    
+    <table schema="root" tableName="role">  
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    </table>
+    
+    <table schema="root" tableName="role_menu">  
+    	<columnOverride column="role_id" property="role" javaType="Role"></columnOverride>
+    	<columnOverride column="menu_id" property="menu" javaType="Menu"></columnOverride>
+    </table> 
+    
+    <table schema="root" tableName="admin">
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    	<columnOverride column="root" property="role" javaType="Role"></columnOverride>
+    </table>  -->
+    <table schema="root" tableName="salary_settle_ment">      
+    	<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+    	
+    </table>
+
+   
+</context>
+</generatorConfiguration>

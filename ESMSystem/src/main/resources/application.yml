@@ -1,0 +1,22 @@
+server:
+  port: 8060
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/esmsystem?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: root
+# 分页插件配置
+# helper-dialect:方言（数据库）
+# reasonable：分页合理化参数，默认值为false，当该参数设置为true，pageNum<=0时候，会查询第一页，
+#   当pageNum > pages(总页数)，会查询最后一页。默认false时候，直接根据参数进行查询
+# support-methods-arguments：支持方法参数
+pagehelper:
+  helper-dialect: mysql 
+  reasonable: true
+  support-methods-arguments: true
