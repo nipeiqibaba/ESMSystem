@@ -10,6 +10,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neu.entity.Dept;
 import com.neu.entity.DeptExample;
+import com.neu.entity.Emp;
+import com.neu.entity.EmpExample;
+import com.neu.entity.EmpExample.Criteria;
 import com.neu.mapper.DeptMapper;
 @Service
 public class DeptServiceImpl implements DeptService {
@@ -20,13 +23,13 @@ public class DeptServiceImpl implements DeptService {
 	@Override
 	public int insert(Dept entity) {
 		// TODO Auto-generated method stub
-		return deptMapper.insert(entity);
+		return deptMapper.insertSelective(entity);
 	}
 
 	@Override
 	public int update(Dept entity) {
 		// TODO Auto-generated method stub
-		return deptMapper.updateByPrimaryKey(entity);
+		return deptMapper.updateByPrimaryKeySelective(entity);
 	}
 
 	@Override
@@ -49,8 +52,21 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public PageInfo<Dept> getPaged(int pageNum, int pageSize, Map<String, Object> params) {
-		PageHelper.startPage(pageNum,pageSize);
-		return null;
+		PageHelper.startPage(pageNum, pageSize);
+		DeptExample example = new DeptExample();
+		com.neu.entity.DeptExample.Criteria criteria = example.or().andDelmarkEqualTo(1);
+		if(!params.get("dname").toString().equals("")) {
+			
+			String a = params.get("dname").toString();
+			criteria.andDnameLike("%"+a+"%");
+		}
+		if(!params.get("deptno").toString().equals("")) {
+			int deptno = Integer.parseInt((String)params.get("deptno"));
+			criteria.andDeptnoEqualTo(deptno);
+		}
+		List<Dept> list = deptMapper.selectByExample(example);
+		PageInfo<Dept> pageInfo = new PageInfo<>(list);
+		return pageInfo;
 	}
 	
 	@Override

@@ -6,9 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neu.entity.Dept;
+import com.neu.entity.DeptExample;
 import com.neu.entity.Job;
 import com.neu.entity.JobExample;
+import com.neu.entity.JobExample.Criteria;
 import com.neu.mapper.JobMapper;
 @Service
 public class JobServiceImpl implements JobService{
@@ -18,13 +22,13 @@ public class JobServiceImpl implements JobService{
 	@Override
 	public int insert(Job entity) {
 		// TODO Auto-generated method stub
-		return jobMapper.insert(entity);
+		return jobMapper.insertSelective(entity);
 	}
 
 	@Override
 	public int update(Job entity) {
 		// TODO Auto-generated method stub
-		return jobMapper.updateByPrimaryKey(entity);
+		return jobMapper.updateByPrimaryKeySelective(entity);
 	}
 
 	@Override
@@ -46,8 +50,21 @@ public class JobServiceImpl implements JobService{
 
 	@Override
 	public PageInfo<Job> getPaged(int pageNum, int pageSize, Map<String, Object> params) {
-		// TODO Auto-generated method stub
-		return null;
+		PageHelper.startPage(pageNum, pageSize);
+		JobExample example = new JobExample();
+		Criteria criteria = example.or().andDelmarkEqualTo(1);
+		if(!params.get("jname").toString().equals("")) {
+			
+			String a = params.get("jname").toString();
+			criteria.andJnameLike("%"+a+"%");
+		}
+		if(!params.get("jno").toString().equals("")) {
+			int jno = Integer.parseInt((String)params.get("jno"));
+			criteria.andJnoEqualTo(jno);
+		}
+		List<Job> list = jobMapper.selectByExample(example);
+		PageInfo<Job> pageInfo = new PageInfo<>(list);
+		return pageInfo;
 	}
 	
 	@Override

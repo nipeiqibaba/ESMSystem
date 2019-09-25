@@ -15,7 +15,7 @@ import com.neu.entity.Emp;
 import com.neu.service.EmpService;
 
 @RestController
-@RequestMapping("EmpMa")
+@RequestMapping("emp")
 public class EmpManageController {
 		
 	@Autowired
@@ -27,9 +27,20 @@ public class EmpManageController {
 			@RequestParam(defaultValue="10") int pageSize,
 			@RequestBody Map<String, Object> params
 	){
-		System.out.println(empService.getPaged(pageNum, pageSize, params));
+		//System.out.println(empService.getPaged(pageNum, pageSize, params));
 		return empService.getPaged(pageNum, pageSize, params);
 	}
-	
+	@RequestMapping("update")
+	public int update(Emp entity) {
+		return empService.update(entity);
+	}
+	@RequestMapping("delete")
+	public int delete(int empno) {
+		return empService.delete(empno);
+	}
+	@RequestMapping("insert")
+	public int insert(Emp emp) {
+		return empService.insert(emp);
+	}
 	
 }

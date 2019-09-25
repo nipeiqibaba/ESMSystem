@@ -22,13 +22,13 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public int insert(Emp entity) {
 		// TODO Auto-generated method stub
-		return empMapper.insert(entity);
+		return empMapper.insertSelective(entity);
 	}
 
 	@Override
 	public int update(Emp entity) {
 		// TODO Auto-generated method stub
-		return empMapper.updateByPrimaryKey(entity);
+		return empMapper.updateByPrimaryKeySelective(entity);
 	}
 
 	@Override
@@ -53,9 +53,24 @@ public class EmpServiceImpl implements EmpService{
 	public PageInfo<Emp> getPaged(int pageNum, int pageSize, Map<String, Object> params) {
 		PageHelper.startPage(pageNum, pageSize);
 		EmpExample example = new EmpExample();
+		Dept dept = new Dept();
+		
 		Criteria criteria = example.or()
-				.andEnameLike("%"+params.get("ename"));		
-		criteria.andDelmarkEqualTo(1);
+				.andDelmarkEqualTo(1);	
+		if(!params.get("ename").toString().equals("")) {
+			String a = params.get("ename").toString();
+			criteria.andEnameLike("%"+a+"%");
+		};
+		if(!params.get("empno").toString().equals("")) {
+			int empno = Integer.parseInt((String)params.get("empno"));
+			criteria.andEmpnoEqualTo(empno);
+		};
+		if(!params.get("dept").toString().equals("")) {
+			int deptno = Integer.parseInt(params.get("dept").toString());
+			dept.setDeptno(deptno);
+			criteria.andDeptEqualTo(dept);
+		};
+		
 		List<Emp> list = empMapper.selectByExample(example);
 		PageInfo<Emp> pageInfo = new PageInfo<>(list);
 		return pageInfo;

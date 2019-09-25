@@ -335,7 +335,7 @@ public class EmpExample {
         }
 
         public Criteria andDeptEqualTo(Dept value) {
-            addCriterion("dno =", value, "dept");
+            addCriterion("dno =", value.getDeptno(), "dept");
             return (Criteria) this;
         }
 
